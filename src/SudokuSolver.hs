@@ -2,8 +2,7 @@ module SudokuSolver where
 
 import Data.Maybe (fromMaybe)
 import Debug.Trace (trace)
-import InputSizeReader (sizeBoard, sizeSquare)
-import Prelude
+import SizeConfig(sizeBoard, sizeSquare)
 
 getXY :: Show a => Maybe [[a]] -> Int -> Int -> a
 getXY Nothing _ _ = error "getXY: Nothing"

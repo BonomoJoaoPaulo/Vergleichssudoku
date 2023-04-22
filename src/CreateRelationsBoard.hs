@@ -1,60 +1,51 @@
-module CreateRelationsBoard (createRelationsBoard) where
+module RelationsBoard (getComparatorsGrid) where
 
-import InputSizeReader (sizeBoard)
+  import SizeConfig (sizeBoard)
+  import Debug.Trace (trace)
 
-createRelationsBoard :: Int -> IO ()
-createRelationsBoard sizeBoard = do
-    if sizeBoard == 4
-        then do 
-            putStrLn "Informe as relações de cada bloco para o tabuleiro de tamanho 4x4:"
-            row1 <- getLine
-            row2 <- getLine
-            row3 <- getLine
-            row4 <- getLine
-            let allRows = [row1, row2, row3, row4]
-            let relationsBoard = getRelationsBoard allRows
-            print relationsBoard
+  row1size4 :: [Char]
+  row2size4 :: [Char]
+  row3size4 :: [Char]
+  row4size4 :: [Char]
+  row1size4 = ".<>.|..<>|.<<.|..>>|"
+  row2size4 = "<<..|>..>|>>..|<..<|"
+  row3size4 = ".>>.|..<<|.<<.|..>>|"
+  row4size4 = "<>..|>..<|>>..|<..<|"
 
-    else if sizeBoard == 6
-        then do 
-            putStrLn "Informe as relações de cada bloco para o tabuleiro de tamanho 6x6:"
-            row1 <- getLine
-            row2 <- getLine
-            row3 <- getLine
-            row4 <- getLine
-            row5 <- getLine
-            row6 <- getLine
-            let allRows = [row1, row2, row3, row4, row5, row6]
-            let relationsBoard = getRelationsBoard allRows
-            print relationsBoard
+  row1size9 :: [Char]
+  row2size9 :: [Char]
+  row3size9 :: [Char]
+  row4size9 :: [Char]
+  row5size9 :: [Char]
+  row6size9 :: [Char]
+  row7size9 :: [Char]
+  row8size9 :: [Char]
+  row9size9 :: [Char]
+  row1size9 = ".<>.|.><>|..<<|.<>.|.<>>|..>>|.><.|.>><|..<<|"
+  row2size9 = "<<<.|><<>|>.<>|<<<.|<>>>|<.><|>>>.|<<><|>.>>|"
+  row3size9 = "><..|><.>|>..>|><..|<>.>|<..<|<>..|<<.<|<..>|"
+  row4size9 = ".>>.|.><<|..<<|.>>.|.<><|..>>|.<<.|.>>>|..<<|"
+  row5size9 = "<>>.|><<<|>.<>|<><.|<<<<|<.>>|>>>.|<>><|>.><|"
+  row6size9 = "<<..|>>.>|>..<|><..|>>.>|<..<|<>..|<<.<|<..>|"
+  row7size9 = ".<>.|.>>>|..><|.><.|.>><|..><|.<<.|.><>|..<<|"
+  row8size9 = "<><.|<<<<|<.>>|>>>.|<<><|<.<>|><>.|><<>|>.>>|"
+  row9size9 = "><..|>>.>|<..<|<<..|<<.>|>..>|<<..|>>.>|<..<|"
 
-    else if sizeBoard == 9
-        then do
-            putStrLn "Informe as relações de cada bloco para o tabuleiro de tamanho 9x9:"
-            row1 <- getLine
-            row2 <- getLine
-            row3 <- getLine
-            row4 <- getLine
-            row5 <- getLine
-            row6 <- getLine
-            row7 <- getLine
-            row8 <- getLine
-            row9 <- getLine
-            let allRows = [row1, row2, row3, row4, row5, row6, row7, row8, row9]
-            let relationsBoard = getRelationsBoard allRows
-            print relationsBoard
-    else
-        putStrLn "As dimensões do tabuleiro fornecidas são inválidas."
+  allRows :: Int -> [[Char]]
+  allRows size
+    | size == 9 = [row1size9, row2size9, row3size9, row4size9, row5size9, row6size9, row7size9, row8size9, row9size9]
+    | size == 4 = [row1size4, row2size4, row3size4, row4size4]
+    | otherwise = error "Invalid size"
 
-getPipeOut :: [Char] -> [Char]
-getPipeOut [] = []
-getPipeOut (x:xs) = if x /= '|' then x : getPipeOut xs else []
+  takePipeOut :: [Char] -> [Char]
+  takePipeOut [] = []
+  takePipeOut (x:xs) = if x /= '|' then x : takePipeOut xs else takePipeOut xs
 
-getAllRelationsFromRow :: [Char] -> [[Char]]
-getAllRelationsFromRow [] = []
-getAllRelationsFromRow rawRow = take 4 row : getAllRelationsFromRow (drop (4+1) row) -- 4 IS HARDCORDED HERE (NEED TO BE FIXED)
-    where
-        row = getPipeOut rawRow
+  takeAllComparatorsFromRow :: [Char] -> [[Char]]
+  takeAllComparatorsFromRow [] = []
+  takeAllComparatorsFromRow rawRow = take 4 row : takeAllComparatorsFromRow (drop 4 row) -- EDIT HERE THE SIZE
+                                        where
+                                          row = takePipeOut rawRow
 
-getRelationsBoard :: [[Char]] -> [[[Char]]]
-getRelationsBoard allRows = map getAllRelationsFromRow allRows
+  getComparatorsGrid :: [[[Char]]]
+  getComparatorsGrid = map takeAllComparatorsFromRow (allRows sizeBoard)
