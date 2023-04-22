@@ -1,4 +1,4 @@
-module RelationsBoard (getComparatorsGrid) where
+module RelationsBoard (getRelationsBoard) where
 
   import SizeConfig (sizeBoard)
   import Debug.Trace (trace)
@@ -47,5 +47,5 @@ module RelationsBoard (getComparatorsGrid) where
                                         where
                                           row = takePipeOut rawRow
 
-  getComparatorsGrid :: [[[Char]]]
-  getComparatorsGrid = map takeAllComparatorsFromRow (allRows sizeBoard)
+  getRelationsBoard :: [[[Char]]]
+  getRelationsBoard = map takeAllComparatorsFromRow (allRows sizeBoard)

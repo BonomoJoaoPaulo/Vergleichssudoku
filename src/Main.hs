@@ -1,7 +1,7 @@
 module Main where
 
 import SizeConfig (sizeBoard)
-import RelationsBoard ()
+import RelationsBoard (getRelationsBoard)
 import SudokuSolver(getSudokuGrid, solveSudoku)
 import PrintBoard(printBoard)
 
