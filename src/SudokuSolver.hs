@@ -2,7 +2,8 @@ module Sudoku where
 import Control.Monad.Writer (runWriter, Writer)
 import Data.Maybe (fromMaybe)
 import Debug.Trace (trace)
-import Config (nSquare, sudokuSize)
+import InputSizeReader (sizeBoard)
+import Prelude
 
 getXY :: Show a => Maybe [[a]] -> Int -> Int -> a
 getXY Nothing _ _ = error "getXY: Nothing"
@@ -13,7 +14,7 @@ setXY Nothing _ _ _ = error "setXY: Nothing"
 setXY (Just grid) r c val = Just (take r grid ++ [take c (grid !! r) ++ [val] ++ drop (c + 1) (grid !! r)] ++ drop (r + 1) grid)
 
 getSudokuGrid :: Int -> Maybe [[Int]]
-getSudokuGrid sudokuSize = Just (replicate sudokuSize (replicate sudokuSize 0))
+getSudokuGrid sizeBoard = Just (replicate sizeBoard (replicate sizeBoard 0))
 
 getRow :: Maybe [[Int]] -> Int -> Int -> [Int]
 getRow Nothing _ _ = []
@@ -25,11 +26,11 @@ getCol (Just grid) x y = map (!! y) grid
 
 getSquare :: Show a => Maybe [[a]] -> Int -> Int -> Int -> [a]
 getSquare Nothing _ _ _ = []
-getSquare (Just grid) x y sudokuSize =
-  [getXY (Just grid) i j | i <- [startRow..startRow + nSquare - 1], j <- [startColumn..startColumn + nSquare - 1]]
+getSquare (Just grid) x y sizeBoard =
+  [getXY (Just grid) i j | i <- [startRow..startRow + sqrt sizeBoard - 1], j <- [startColumn..startColumn + sqrt sizeBoard - 1]]
     where
-      startRow = x - x `mod` nSquare
-      startColumn = y - y `mod` nSquare
+      startRow = x - x `mod` sqrt sizeBoard
+      startColumn = y - y `mod` sqrt sizeBoard
 
 compareBigger :: Maybe [[Int]] -> Int -> Int -> Int -> Int -> Bool
 compareBigger Nothing _ _ _ _ = False
@@ -59,17 +60,17 @@ executeComparison sudokuGrid comparator x y value operatorType
   | otherwise = error "executeComparison: Invalid comparator"
 
 getCompare :: Maybe [[Int]] -> [[[Char]]] -> Int -> Int -> [Int]
-getCompare sudokuGrid comparatorsGrid x y = [a | a <- [1..sudokuSize], canFitComparators a]
+getCompare sudokuGrid comparatorsGrid x y = [a | a <- [1..sizeBoard], canFitComparators a]
   where
     comparators = getXY (Just comparatorsGrid) x y
     canFitComparators a = all (==True) [executeComparison sudokuGrid (comparators !! index) x y a index | index <- [0..3]]
 
 getPossibleOptions :: Maybe [[Int]] -> [[[Char]]] -> Int -> Int -> [Int]
-getPossibleOptions sudokuGrid sudokuGridChars x y = [a | a <- [1..sudokuSize], notInRow a, notInCol a, notInSquare a, inCompareOptions a]
+getPossibleOptions sudokuGrid sudokuGridChars x y = [a | a <- [1..sizeBoard], notInRow a, notInCol a, notInSquare a, inCompareOptions a]
     where
         notInRow a = a `notElem` getRow sudokuGrid x y
         notInCol a = a `notElem` getCol sudokuGrid x y
-        notInSquare a = a `notElem` getSquare sudokuGrid x y sudokuSize
+        notInSquare a = a `notElem` getSquare sudokuGrid x y sizeBoard
         inCompareOptions a = a `elem` getCompare sudokuGrid sudokuGridChars x y
 
 getValueInList :: [a] -> Int -> a
@@ -86,9 +87,9 @@ getListLength (_:xs) = 1 + getListLength xs
 solveSudoku :: Maybe [[Int]] -> [[[Char]]] -> Int -> Int -> Maybe [[Int]]
 solveSudoku sudokuGrid comparatorsGrid row column = do
   -- Verifica se chegou na ultima célula, retorna o tabuleiro
-  if row == (sudokuSize - 1) && column == sudokuSize then trace "Found the solution: " sudokuGrid
+  if row == (sizeBoard - 1) && column == sizeBoard then trace "Found the solution: " sudokuGrid
   -- Verifica se chegou no final de uma linha, se sim passa para a próxima
-  else if column == sudokuSize then solveSudoku sudokuGrid comparatorsGrid (row + 1) 0
+  else if column == sizeBoard then solveSudoku sudokuGrid comparatorsGrid (row + 1) 0
   -- Verifica se o valor da célula atual já foi definido, se foi passa para a próxima célula
   else if getXY sudokuGrid row column > 0 then trace "Value already defined" solveSudoku sudokuGrid comparatorsGrid row (column + 1)
   else do
