@@ -1,8 +1,6 @@
-module InputSizeReader (sizeBoard) where
-    sizeBoard :: IO Int
-    sizeBoard = do
-        putStrLn "Enter the size of the board: "
-        size <- getLine
-        let sizeBoard = read size :: Int
+module InputSizeReader (sizeBoard, sizeSquare) where
+    sizeBoard :: Int
+    sizeBoard = 4
 
-        return sizeBoard
+    sizeSquare :: Int
+    sizeSquare = 2
