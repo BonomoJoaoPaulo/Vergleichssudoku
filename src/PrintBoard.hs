@@ -1,4 +1,4 @@
-module OutputGenerator (printMatrix) where
+module PrintBoard (printBoard) where
 
 printLine :: [Int] -> IO ()
 printLine [] = putStrLn ""
@@ -7,13 +7,13 @@ printLine (x:xs) = do
     putStr " "
     printLine xs
 
-printMatrix :: Maybe [[Int]] -> IO()
-printMatrix matrix = do
-    case matrix of
+printBoard :: Maybe [[Int]] -> IO()
+printBoard board = do
+    case board of
         Nothing -> putStrLn "No solution"
         Just (x:xs) -> do
             case xs of
                 [] -> printLine x
                 _ -> do
                     printLine x
-                    printMatrix (Just xs)
+                    printBoard (Just xs)

@@ -1,5 +1,5 @@
 module Sudoku where
-import Control.Monad.Writer (runWriter, Writer)
+
 import Data.Maybe (fromMaybe)
 import Debug.Trace (trace)
 import InputSizeReader (sizeBoard)

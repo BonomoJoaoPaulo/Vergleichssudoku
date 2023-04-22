@@ -76,5 +76,5 @@ createRelationsBoard sizeBoard = do
                                         where
                                           row = getPipeOut rawRow
 
-    createRelationsBoard :: [[[Char]]]
-    createRelationsBoard = map getAllRelationsFromRow (allRows sizeBoard)
+    getRelationsBoard :: [[[Char]]]
+    getRelationsBoard = map getAllRelationsFromRow (allRows sizeBoard)
