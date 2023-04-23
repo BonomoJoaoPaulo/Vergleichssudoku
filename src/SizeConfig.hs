@@ -1,6 +1,6 @@
 module SizeConfig (sizeBoard, sizeRowRegion, sizeColumnRegion) where
     sizeBoard :: Int -- Variável referente ao tamanho do tabuleiro.
-    sizeBoard = 9 -- Usuario pode escolher entre 4, 6 e 9.
+    sizeBoard = 6 -- Usuario pode escolher entre 4, 6 e 9.
 
     sizeRowRegion :: Int -- Variável referente ao número de linhas de cada região do tabuleiro.
     sizeRowRegion = 3 -- Para um sizeBoard == 4, sizeRowRegion = 2; Para um sizeBoard == 6 ou sizeBoard == 9, sizeRowRegion = 3.
