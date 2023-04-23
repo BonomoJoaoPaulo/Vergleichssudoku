@@ -12,6 +12,20 @@ module RelationsBoard (getRelationsBoard) where
   row3size4 = ".>>.|..<<|.<<.|..>>|"
   row4size4 = "<>..|>..<|>>..|<..<|"
 
+  -- INPUT 004
+  row1size6 :: [Char]
+  row2size6 :: [Char]
+  row3size6 :: [Char]
+  row4size6 :: [Char]
+  row5size6 :: [Char]
+  row6size6 :: [Char]
+  row1size6 = ".<<.|..>>|.><.|..<<|.><.|..><|"
+  row2size6 = ">>>.|<.><|>>>.|>.<<|>><.|<.<<|"
+  row3size6 = "<<..|<..>|<<..|>..>|><..|>..>|"
+  row4size6 = ".<<.|..<>|.<>.|..>>|.<<.|..>>|"
+  row5size6 = ">>>.|>.><|<<<.|<.<>|><<.|<.>>|"
+  row6size6 = "<>..|<..<|><..|>..>|>>..|<..<|"
+
   row1size9 :: [Char]
   row2size9 :: [Char]
   row3size9 :: [Char]
@@ -34,6 +48,7 @@ module RelationsBoard (getRelationsBoard) where
   allRows :: Int -> [[Char]]
   allRows size
     | size == 9 = [row1size9, row2size9, row3size9, row4size9, row5size9, row6size9, row7size9, row8size9, row9size9]
+    | size == 6 = [row1size6, row2size6, row3size6, row4size6, row5size6, row6size6]
     | size == 4 = [row1size4, row2size4, row3size4, row4size4]
     | otherwise = error "Invalid size"
 

@@ -1,6 +1,6 @@
 module SizeConfig (sizeBoard, sizeSquare) where
     sizeBoard :: Int
-    sizeBoard = 4
+    sizeBoard = 6
 
     sizeSquare :: Int
-    sizeSquare = 2
+    sizeSquare = 3
