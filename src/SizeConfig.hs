@@ -1,6 +1,9 @@
-module SizeConfig (sizeBoard, sizeSquare) where
+module SizeConfig (sizeBoard, sizeRowGrid, sizeColumnGrid) where
     sizeBoard :: Int
     sizeBoard = 9
 
-    sizeSquare :: Int
-    sizeSquare = 3
+    sizeRowGrid :: Int
+    sizeRowGrid = 3
+
+    sizeColumnGrid :: Int
+    sizeColumnGrid = 2

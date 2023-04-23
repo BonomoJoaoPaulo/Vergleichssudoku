@@ -2,7 +2,7 @@ module SudokuSolver where
 
 import Data.Maybe (fromMaybe)
 import Debug.Trace (trace)
-import SizeConfig(sizeBoard, sizeSquare)
+import SizeConfig(sizeBoard, sizeRowGrid, sizeColumnGrid)
 
 getXY :: Show a => Maybe [[a]] -> Int -> Int -> a
 getXY Nothing _ _ = error "getXY: Nothing"
@@ -26,10 +26,10 @@ getCol (Just grid) x y = map (!! y) grid
 getSquare :: Show a => Maybe [[a]] -> Int -> Int -> Int -> [a]
 getSquare Nothing _ _ _ = []
 getSquare (Just grid) x y sizeBoard =
-  [getXY (Just grid) i j | i <- [startRow..startRow + sizeSquare - 1], j <- [startColumn..startColumn + sizeSquare - 1]]
+  [getXY (Just grid) i j | i <- [startRow..startRow + sizeRowGrid - 1], j <- [startColumn..startColumn + sizeColumnGrid - 1]]
     where
-      startRow = x - x `mod` sizeSquare
-      startColumn = y - y `mod` sizeSquare
+      startRow = x - x `mod` sizeRowGrid
+      startColumn = y - y `mod` sizeColumnGrid
 
 compareBigger :: Maybe [[Int]] -> Int -> Int -> Int -> Int -> Bool
 compareBigger Nothing _ _ _ _ = False
