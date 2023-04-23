@@ -1,4 +1,4 @@
-module PrintBoard (printBoard) where
+module BoardPrinter (printBoard) where
 
 printLine :: [Int] -> IO ()
 printLine [] = putStrLn ""
