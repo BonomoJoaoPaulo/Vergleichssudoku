@@ -3,6 +3,7 @@ module RelationsBoard (getRelationsBoard) where
   import SizeConfig (sizeBoard)
   import Debug.Trace (trace)
 
+  -- INPUT 0001
   row1size4 :: [Char]
   row2size4 :: [Char]
   row3size4 :: [Char]
@@ -26,6 +27,7 @@ module RelationsBoard (getRelationsBoard) where
   row5size6 = ">>>.|>.><|<<<.|<.<>|><<.|<.>>|"
   row6size6 = "<>..|<..<|><..|>..>|>>..|<..<|"
 
+  -- INPUT 011
   row1size9 :: [Char]
   row2size9 :: [Char]
   row3size9 :: [Char]
@@ -58,7 +60,7 @@ module RelationsBoard (getRelationsBoard) where
 
   takeAllComparatorsFromRow :: [Char] -> [[Char]]
   takeAllComparatorsFromRow [] = []
-  takeAllComparatorsFromRow rawRow = take 4 row : takeAllComparatorsFromRow (drop 4 row) -- EDIT HERE THE SIZE
+  takeAllComparatorsFromRow rawRow = take 4 row : takeAllComparatorsFromRow (drop 4 row)
                                         where
                                           row = takePipeOut rawRow
 
