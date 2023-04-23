@@ -10,7 +10,7 @@ printLine (x:xs) = do
 printBoard :: Maybe [[Int]] -> IO()
 printBoard board = do
     case board of
-        Nothing -> putStrLn "No solution"
+        Nothing -> putStrLn "NENHUMA SOLUÇÃO ENCONTRADA."
         Just (x:xs) -> do
             case xs of
                 [] -> printLine x
