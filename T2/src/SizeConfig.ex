@@ -1,9 +1,13 @@
 defmodule SizeConfig do
-  @size_board 6
-  @size_row_region 3
-  @size_column_region 2
+  def size_board do
+    6
+  end
 
-  def size_board, do: @size_board
-  def size_row_region, do: @size_row_region
-  def size_column_region, do: @size_column_region
+  def size_row_region do
+    3
+  end
+
+  def size_column_region do
+    2
+  end
 end
