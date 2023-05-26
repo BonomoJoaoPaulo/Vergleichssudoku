@@ -6,7 +6,7 @@ defmodule Main do
   board_size = SizeConfig.size_board()
   row_region_size = SizeConfig.size_row_region()
   column_region_size = SizeConfig.size_column_region()
-  relations_matrix = RelationsBoard.get_relations()
+  relations_matrix = RelationsBoard.get_relations_board()
 
   IO.puts("Tamanho do tabuleiro: #{board_size}")
   IO.puts("Tamanho das regiões de linha: #{row_region_size}")
