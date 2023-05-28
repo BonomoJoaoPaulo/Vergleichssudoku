@@ -79,7 +79,7 @@ defmodule VergleichsSudoku do
   """
   @spec getCol({:ok, [[integer]]}, non_neg_integer, non_neg_integer) :: [integer]
   def getCol({:ok, grid}, _, y) do
-    Enum.map(grid, &List.at(&1, y))
+    Enum.map(grid, &Enum.at(&1, y))
   end
 
   @doc """
