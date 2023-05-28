@@ -4,6 +4,7 @@
 [ ] Add description
 [ ] Translate comments
 [ ] Add unittest
+[ ] Write Relatório.pdf
 
 ## Installation
 
