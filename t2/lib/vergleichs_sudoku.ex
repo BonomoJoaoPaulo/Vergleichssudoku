@@ -15,7 +15,7 @@ defmodule VergleichsSudoku do
   Retorna o valor de uma matriz em uma determinada posição.
   Caso recursivo: retorna o valor da posição (x, y) da matriz.
   """
-  def getXY({:ok, grid}, x, y) do
+  def getXY(grid, x, y) do
     Enum.at(Enum.at(grid, x), y)
   end
 
@@ -30,18 +30,18 @@ defmodule VergleichsSudoku do
   @doc """
   Altera o valor de uma matriz em uma determinada posição (x, y).
   """
-  def setXY({:ok, grid}, r, c, val) do
+  def setXY(grid, r, c, val) do
     new_grid = List.replace_at(grid, r, List.replace_at(Enum.at(grid, r), c, val))
-    {:ok, new_grid}
+    new_grid
   end
 
   @doc """
   Retorna a matriz inicial do tabuleiro, com o tamanho configurado pelo usuário em SizeConfig.hs.
   """
-  @spec getVergleichsSudokuGrid(non_neg_integer) :: nil | {:ok, [[integer]]}
+  @spec getVergleichsSudokuGrid(non_neg_integer) :: nil | [[integer]]
   def getVergleichsSudokuGrid(sizeBoard) when sizeBoard > 0 do
     grid = List.duplicate(List.duplicate(0, sizeBoard), sizeBoard)
-    {:ok, grid}
+    grid
   end
 
   def getVergleichsSudokuGrid(_sizeBoard) do
@@ -52,7 +52,7 @@ defmodule VergleichsSudoku do
   Retorna a linha (x) na posição (x, y) do tabuleiro.
   Exceção.
   """
-  @spec getRow(nil | {:ok, [[integer]]}, non_neg_integer, non_neg_integer) :: [integer]
+  @spec getRow(nil | [[integer]], non_neg_integer, non_neg_integer) :: [integer]
   def getRow(nil, _, _) do
     []
   end
@@ -60,8 +60,8 @@ defmodule VergleichsSudoku do
   @doc """
   Retorna a linha (x) na posição (x, y) do tabuleiro.
   """
-  @spec getRow({:ok, [[integer]]}, non_neg_integer, non_neg_integer) :: [integer]
-  def getRow({:ok, grid}, x, _) do
+  @spec getRow([[integer]], non_neg_integer, non_neg_integer) :: [integer]
+  def getRow(grid, x, _) do
     Enum.at(grid, x)
   end
 
@@ -69,7 +69,7 @@ defmodule VergleichsSudoku do
   Retorna a coluna (x) na posição (x, y) do tabuleiro.
   Exceção.
   """
-  @spec getCol(nil | {:ok, [[integer]]}, non_neg_integer, non_neg_integer) :: [integer]
+  @spec getCol(nil | [[integer]], non_neg_integer, non_neg_integer) :: [integer]
   def getCol(nil, _, _) do
     []
   end
@@ -77,8 +77,8 @@ defmodule VergleichsSudoku do
   @doc """
   Retorna a coluna (x) na posição (x, y) do tabuleiro.
   """
-  @spec getCol({:ok, [[integer]]}, non_neg_integer, non_neg_integer) :: [integer]
-  def getCol({:ok, grid}, _, y) do
+  @spec getCol([[integer]], non_neg_integer, non_neg_integer) :: [integer]
+  def getCol(grid, _, y) do
     Enum.map(grid, &Enum.at(&1, y))
   end
 
@@ -87,7 +87,7 @@ defmodule VergleichsSudoku do
   Ela retorna a região correspondente à posição (x, y) na matriz.
   O tamanho da região é calculado com base nas dimensões fornecidas pelo usuário em SizeConfig.hs.
   """
-  def getRegion({:ok, grid}, x, y, _sizeBoard) do
+  def getRegion(grid, x, y, _sizeBoard) do
     # Linha inicial daquela região.
     startRow = x - rem(x, SizeConfig.sizeRowRegion())
     # Coluna inicial daquela região.
@@ -95,7 +95,7 @@ defmodule VergleichsSudoku do
 
     for i <- startRow..(startRow + SizeConfig.sizeRowRegion() - 1),
         j <- startColumn..(startColumn + SizeConfig.sizeColumnRegion() - 1),
-        do: getXY({:ok, grid}, i, j)
+        do: getXY(grid, i, j)
   end
 
   @doc """
@@ -111,7 +111,7 @@ defmodule VergleichsSudoku do
   Função responsável pelas comparações de MAIOR QUE.
   """
   @spec compareBigger(
-          nil | {:ok, [[integer]]},
+          nil | [[integer]],
           non_neg_integer,
           non_neg_integer,
           integer,
@@ -121,47 +121,47 @@ defmodule VergleichsSudoku do
     false
   end
 
-  @spec compareBigger({:ok, [[integer]]}, non_neg_integer, non_neg_integer, integer, 0..3) ::
+  @spec compareBigger([[integer]], non_neg_integer, non_neg_integer, integer, 0..3) ::
           boolean
-  def compareBigger({:ok, grid}, x, y, value, 0) do
-    value > getXY({:ok, grid}, x - 1, y) || getXY({:ok, grid}, x - 1, y) == 0
+  def compareBigger(grid, x, y, value, 0) do
+    value > getXY(grid, x - 1, y) || getXY(grid, x - 1, y) == 0
   end
 
-  @spec compareBigger({:ok, [[integer]]}, non_neg_integer, non_neg_integer, integer, 0..3) ::
+  @spec compareBigger([[integer]], non_neg_integer, non_neg_integer, integer, 0..3) ::
           boolean
-  def compareBigger({:ok, grid}, x, y, value, 1) do
-    value > getXY({:ok, grid}, x, y + 1) || getXY({:ok, grid}, x, y + 1) == 0
+  def compareBigger(grid, x, y, value, 1) do
+    value > getXY(grid, x, y + 1) || getXY(grid, x, y + 1) == 0
   end
 
-  @spec compareBigger({:ok, [[integer]]}, non_neg_integer, non_neg_integer, integer, 0..3) ::
+  @spec compareBigger([[integer]], non_neg_integer, non_neg_integer, integer, 0..3) ::
           boolean
-  def compareBigger({:ok, grid}, x, y, value, 2) do
-    value > getXY({:ok, grid}, x + 1, y) || getXY({:ok, grid}, x + 1, y) == 0
+  def compareBigger(grid, x, y, value, 2) do
+    value > getXY(grid, x + 1, y) || getXY(grid, x + 1, y) == 0
   end
 
-  @spec compareBigger({:ok, [[integer]]}, non_neg_integer, non_neg_integer, integer, 0..3) ::
+  @spec compareBigger([[integer]], non_neg_integer, non_neg_integer, integer, 0..3) ::
           boolean
-  def compareBigger({:ok, grid}, x, y, value, 3) do
-    value > getXY({:ok, grid}, x, y - 1) || getXY({:ok, grid}, x, y - 1) == 0
+  def compareBigger(grid, x, y, value, 3) do
+    value > getXY(grid, x, y - 1) || getXY(grid, x, y - 1) == 0
   end
 
-  @spec compareBigger({:ok, [[integer]]}, non_neg_integer, non_neg_integer, integer, integer) ::
+  @spec compareBigger([[integer]], non_neg_integer, non_neg_integer, integer, integer) ::
           boolean
-  def compareBigger({:ok, _grid}, _x, _y, _value, n) when n < 0 or n > 3 do
+  def compareBigger(_grid, _x, _y, _value, n) when n < 0 or n > 3 do
     raise ArgumentError, "compareBigger: n is not in range 0..3"
   end
 
-  @spec compareBigger({:ok, [[integer]]}, non_neg_integer, non_neg_integer, integer, integer) ::
+  @spec compareBigger([[integer]], non_neg_integer, non_neg_integer, integer, integer) ::
           boolean
-  def compareBigger({:ok, grid}, x, y, value, n) do
-    compareBigger({:ok, grid}, x, y, value, n)
+  def compareBigger(grid, x, y, value, n) do
+    compareBigger(grid, x, y, value, n)
   end
 
   @doc """
   Função responsável pelas comparações de MENOR QUE.
   """
   @spec compareSmaller(
-          nil | {:ok, [[integer]]},
+          nil | [[integer]],
           non_neg_integer,
           non_neg_integer,
           integer,
@@ -171,47 +171,47 @@ defmodule VergleichsSudoku do
     false
   end
 
-  @spec compareSmaller({:ok, [[integer]]}, non_neg_integer, non_neg_integer, integer, 0..3) ::
+  @spec compareSmaller([[integer]], non_neg_integer, non_neg_integer, integer, 0..3) ::
           boolean
-  def compareSmaller({:ok, grid}, x, y, value, 0) do
-    value < getXY({:ok, grid}, x - 1, y) || getXY({:ok, grid}, x - 1, y) == 0
+  def compareSmaller(grid, x, y, value, 0) do
+    value < getXY(grid, x - 1, y) || getXY(grid, x - 1, y) == 0
   end
 
-  @spec compareSmaller({:ok, [[integer]]}, non_neg_integer, non_neg_integer, integer, 0..3) ::
+  @spec compareSmaller([[integer]], non_neg_integer, non_neg_integer, integer, 0..3) ::
           boolean
-  def compareSmaller({:ok, grid}, x, y, value, 1) do
-    value < getXY({:ok, grid}, x, y + 1) || getXY({:ok, grid}, x, y + 1) == 0
+  def compareSmaller(grid, x, y, value, 1) do
+    value < getXY(grid, x, y + 1) || getXY(grid, x, y + 1) == 0
   end
 
-  @spec compareSmaller({:ok, [[integer]]}, non_neg_integer, non_neg_integer, integer, 0..3) ::
+  @spec compareSmaller([[integer]], non_neg_integer, non_neg_integer, integer, 0..3) ::
           boolean
-  def compareSmaller({:ok, grid}, x, y, value, 2) do
-    value < getXY({:ok, grid}, x + 1, y) || getXY({:ok, grid}, x + 1, y) == 0
+  def compareSmaller(grid, x, y, value, 2) do
+    value < getXY(grid, x + 1, y) || getXY(grid, x + 1, y) == 0
   end
 
-  @spec compareSmaller({:ok, [[integer]]}, non_neg_integer, non_neg_integer, integer, 0..3) ::
+  @spec compareSmaller([[integer]], non_neg_integer, non_neg_integer, integer, 0..3) ::
           boolean
-  def compareSmaller({:ok, grid}, x, y, value, 3) do
-    value < getXY({:ok, grid}, x, y - 1) || getXY({:ok, grid}, x, y - 1) == 0
+  def compareSmaller(grid, x, y, value, 3) do
+    value < getXY(grid, x, y - 1) || getXY(grid, x, y - 1) == 0
   end
 
-  @spec compareSmaller({:ok, [[integer]]}, non_neg_integer, non_neg_integer, integer, integer) ::
+  @spec compareSmaller([[integer]], non_neg_integer, non_neg_integer, integer, integer) ::
           boolean
-  def compareSmaller({:ok, _grid}, _x, _y, _value, n) when n < 0 or n > 3 do
+  def compareSmaller(_grid, _x, _y, _value, n) when n < 0 or n > 3 do
     raise ArgumentError, "compareSmaller: n is not in range 0..3"
   end
 
-  @spec compareSmaller({:ok, [[integer]]}, non_neg_integer, non_neg_integer, integer, integer) ::
+  @spec compareSmaller([[integer]], non_neg_integer, non_neg_integer, integer, integer) ::
           boolean
-  def compareSmaller({:ok, grid}, x, y, value, n) do
-    compareSmaller({:ok, grid}, x, y, value, n)
+  def compareSmaller(grid, x, y, value, n) do
+    compareSmaller(grid, x, y, value, n)
   end
 
   @doc """
   Função responsável por executar as comparações.
   """
   @spec executeComparison(
-          nil | {:ok, [[integer]]},
+          nil | [[integer]],
           char,
           non_neg_integer,
           non_neg_integer,
@@ -223,50 +223,50 @@ defmodule VergleichsSudoku do
   end
 
   @spec executeComparison(
-          {:ok, [[integer]]},
+          [[integer]],
           char,
           non_neg_integer,
           non_neg_integer,
           integer,
           0..3
         ) :: boolean
-  def executeComparison({:ok, _vergleichssudokuGrid}, '.', _, _, _, _) do
+  def executeComparison(_vergleichssudokuGrid, ?., _, _, _, _) do
     true
   end
 
   @spec executeComparison(
-          {:ok, [[integer]]},
+          [[integer]],
           char,
           non_neg_integer,
           non_neg_integer,
           integer,
           0..3
         ) :: boolean
-  def executeComparison({:ok, vergleichssudokuGrid}, '>', x, y, value, operator_type) do
-    compareBigger({:ok, vergleichssudokuGrid}, x, y, value, operator_type)
+  def executeComparison(vergleichssudokuGrid, ?>, x, y, value, operator_type) do
+    compareBigger(vergleichssudokuGrid, x, y, value, operator_type)
   end
 
   @spec executeComparison(
-          {:ok, [[integer]]},
+          [[integer]],
           char,
           non_neg_integer,
           non_neg_integer,
           integer,
           0..3
         ) :: boolean
-  def executeComparison({:ok, vergleichssudokuGrid}, '<', x, y, value, operator_type) do
-    compareSmaller({:ok, vergleichssudokuGrid}, x, y, value, operator_type)
+  def executeComparison(vergleichssudokuGrid, ?<, x, y, value, operator_type) do
+    compareSmaller(vergleichssudokuGrid, x, y, value, operator_type)
   end
 
   @spec executeComparison(
-          {:ok, [[integer]]},
+          [[integer]],
           char,
           non_neg_integer,
           non_neg_integer,
           integer,
           integer
         ) :: boolean
-  def executeComparison({:ok, _}, _, _, _, _, _) do
+  def executeComparison(_, _, _, _, _, _) do
     raise ArgumentError, "executeComparison: Invalid comparator"
   end
 
@@ -275,7 +275,6 @@ defmodule VergleichsSudoku do
   """
   def getCompare(vergleichssudokuGrid, comparatorsGrid, x, y) do
     comparators = getXY(comparatorsGrid, x, y)
-
     canFitComparators = fn a ->
       Enum.all?(
         for index <- 0..3,
@@ -290,6 +289,7 @@ defmodule VergleichsSudoku do
               )
       )
     end
+
     size = SizeConfig.sizeBoard()
     for a <- 1..size, canFitComparators.(a), do: a
   end
@@ -386,8 +386,7 @@ defmodule VergleichsSudoku do
           column == SizeConfig.sizeBoard(), getXY(vergleichssudokuGrid, row, column) > 0} do
       # Retorna o tabuleiro caso tenha chegado na última célula.
       {true, _, _} ->
-        IO.puts("Found the solution: ", vergleichssudokuGrid)
-        # IO.puts("Found the solution: #{inspect(vergleichssudokuGrid)}")
+        IO.puts("Found the solution: ")
         vergleichssudokuGrid
 
       # Verifica se chegou ao fim de uma linha, caso tenha chegado, salta para a próxima.
