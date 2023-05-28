@@ -387,7 +387,7 @@ defmodule VergleichsSudoku do
   Função responsável pela solução do tabuleiro.
   Recebe o tabuleiro, o tabuleiro de comparações, a linha atual e a coluna atual.
   """
-  def solveVergleichssudoku(vergleichssudokuGrid, comparatorsGrid, row, column) do
+  def solveVergleichsSudoku(vergleichssudokuGrid, comparatorsGrid, row, column) do
     case {row == SizeConfig.sizeBoard() - 1 && column == SizeConfig.sizeBoard(),
           column == SizeConfig.sizeBoard(), getXY(vergleichssudokuGrid, row, column) > 0} do
       # Retorna o tabuleiro caso tenha chegado na última célula.
@@ -398,19 +398,19 @@ defmodule VergleichsSudoku do
 
       # Verifica se chegou ao fim de uma linha, caso tenha chegado, salta para a próxima.
       {_, true, _} ->
-        solveVergleichssudoku(vergleichssudokuGrid, comparatorsGrid, row + 1, 0)
+        solveVergleichsSudoku(vergleichssudokuGrid, comparatorsGrid, row + 1, 0)
 
       # Verifica se o valor da célula atual já foi definido, caso tenha sido, passa para a próxima célula.
       {_, _, true} ->
         IO.puts("Value already defined")
-        solveVergleichssudoku(vergleichssudokuGrid, comparatorsGrid, row, column + 1)
+        solveVergleichsSudoku(vergleichssudokuGrid, comparatorsGrid, row, column + 1)
 
       _ ->
         # Checa os valores possíveis para a célula atual.
         possibles = getPossibleOptions(vergleichssudokuGrid, comparatorsGrid, row, column)
 
         # Após validar a posição e adquirir os possíveis números chama a função recursiva que testa cada um deles.
-        solveVergleichssudokuWithValues(
+        solveVergleichsSudokuWithValues(
           vergleichssudokuGrid,
           comparatorsGrid,
           row,
@@ -424,7 +424,7 @@ defmodule VergleichsSudoku do
   @doc """
   A partir de uma lista de possíveis números para uma posição específica testa cada um deles até terminar a lista ou algum funcionar
   """
-  def solveVergleichssudokuWithValues(
+  def solveVergleichsSudokuWithValues(
         vergleichssudokuGrid,
         comparatorsGrid,
         row,
@@ -437,11 +437,11 @@ defmodule VergleichsSudoku do
     else
       updatedGrid = setXY(vergleichssudokuGrid, row, column, getValueInList(possibles, index))
 
-      case solveVergleichssudoku(updatedGrid, comparatorsGrid, row, column + 1) do
+      case solveVergleichsSudoku(updatedGrid, comparatorsGrid, row, column + 1) do
         nil ->
           updatedGrid = setXY(updatedGrid, row, column, 0)
 
-          solveVergleichssudokuWithValues(
+          solveVergleichsSudokuWithValues(
             updatedGrid,
             comparatorsGrid,
             row,

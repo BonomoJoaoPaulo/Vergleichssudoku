@@ -2,10 +2,6 @@ defmodule Main do
   @moduledoc """
   Application Module
   """
-  # import SizeConfig
-  # import RelationsBoard, only: [getRelationsBoard/0]
-  # import VergleichsSudoku, only: [getVergleichsSudokuGrid/1, solveVergleichsSudoku/4]
-  # import BoardPrinter, only: [print_board/1]
 
   @doc """
   Runs the application
