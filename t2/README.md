@@ -1,6 +1,9 @@
 # VergleichsSudoku
 
-**TODO: Add description**
+**TODO:**
+[ ] Add description
+[ ] Translate comments
+[ ] Add unittest
 
 ## Installation
 

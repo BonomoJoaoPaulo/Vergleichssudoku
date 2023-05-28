@@ -2,9 +2,9 @@ defmodule SizeConfig do
   @moduledoc """
   Configura o tabuleiro
   """
-  @sizeBoard 9
-  @sizeRowRegion 3
-  @sizeColumnRegion 3
+  @sizeBoard 4
+  @sizeRowRegion 2
+  @sizeColumnRegion 2
 
   @doc """
   Variável referente ao tamanho do tabuleiro.
