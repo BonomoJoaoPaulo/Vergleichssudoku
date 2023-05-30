@@ -1,6 +1,6 @@
 defmodule VergleichsSudoku do
   @moduledoc """
-  Solver for VergleichsSudoku.
+  Solucionador para o VergleichsSudoku.
   """
 
   @doc """
@@ -98,14 +98,14 @@ defmodule VergleichsSudoku do
         do: getXY(grid, i, j)
   end
 
-  @doc """
-  A função getRegion recebe uma matriz de elementos, um valor x, um valor y e o tamanho do tabuleiro como entrada.
-  Ela retorna a região correspondente à posição (x, y) na matriz.
-  Caso base: matriz vazia.
-  """
-  def getRegion(nil, _, _, _) do
-    []
-  end
+  #@doc """
+  #A função getRegion recebe uma matriz de elementos, um valor x, um valor y e o tamanho do tabuleiro como entrada.
+  #Ela retorna a região correspondente à posição (x, y) na matriz.
+  #Caso base: matriz vazia.
+  #"""
+  #def getRegion(nil, _, _, _) do
+  #  []
+  #end
 
   @doc """
   Função responsável pelas comparações de MAIOR QUE.
@@ -306,28 +306,28 @@ defmodule VergleichsSudoku do
   end
 
   @doc """
-  Helper function that check if it not in a row
+  Função utilitária que verifica se não está em uma linha
   """
   def notInRow(a, vergleichssudokuGrid, x, y) do
     a not in getRow(vergleichssudokuGrid, x, y)
   end
 
   @doc """
-  Helper function that checks if it is not in a column
+  Função utilitária que verifica se não está em uma coluna
   """
   def notInCol(a, vergleichssudokuGrid, x, y) do
     a not in getCol(vergleichssudokuGrid, x, y)
   end
 
   @doc """
-  Helper function that checks if it is not in square
+  Função utilitária que verifica se não está em um quadrado
   """
   def notInSquare(a, vergleichssudokuGrid, x, y) do
     a not in getRegion(vergleichssudokuGrid, x, y, SizeConfig.sizeBoard())
   end
 
   @doc """
-  Helper function that checks if it is in comparison options
+  Função utilitária que verifica se está nas opções de comparação
   """
   def inCompareOptions(a, vergleichssudokuGrid, vergleichssudokuGridChars, x, y) do
     a in getCompare(vergleichssudokuGrid, vergleichssudokuGridChars, x, y)

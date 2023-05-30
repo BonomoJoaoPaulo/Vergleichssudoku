@@ -1,6 +1,6 @@
 defmodule RelationsBoard do
   @moduledoc """
-  Module that parsers the board to extract the information for the solver
+  Módulo que faz o parser do tabuleiro para extrair as informações para o solucionador
   """
   # INPUT 0001
   @row1size4 '.<>.|..<>|.<<.|..>>|'
@@ -59,7 +59,7 @@ defmodule RelationsBoard do
   end
 
   @doc """
-  Using pattern matching to remove | symbol
+  Utilizando de correspondência de padrões para remover os símbolos |
   """
   @spec takePipeOut(binary) :: binary
   def takePipeOut([]), do: []
@@ -71,7 +71,7 @@ defmodule RelationsBoard do
   def takePipeOut([_ | xs]), do: takePipeOut(xs)
 
   @doc """
-  Using pattern matching to find only comparison symbols
+  Utilizando de correspondência de padrões para achar apenas os símbolos de comparação
   """
   @spec takeAllComparatorsFromRow(binary) :: list(binary)
   def takeAllComparatorsFromRow([]), do: []
@@ -82,7 +82,7 @@ defmodule RelationsBoard do
   end
 
   @doc """
-  Returns the relation board
+  Retorna o tabuleiro de relações
   """
   @spec getRelationsBoard() :: list(list(binary))
   def getRelationsBoard() do

@@ -1,10 +1,10 @@
 defmodule Main do
   @moduledoc """
-  Application Module
+  Módulo da Aplicação
   """
 
   @doc """
-  Runs the application
+  Roda a aplicação
   """
   def run() do
     IO.puts("WELCOME TO VERGLEICHSSUDOKU SOLVER!")
@@ -20,7 +20,7 @@ defmodule Main do
   end
 end
 
-# Check if the current module is being invoked directly
+# Verifica se o módulo atual é o que está sendo invocado diretamente
 if __MODULE__ == __MODULE__ do
   Main.run()
 end

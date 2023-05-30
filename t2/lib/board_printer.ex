@@ -1,10 +1,10 @@
 defmodule BoardPrinter do
   @moduledoc """
-  This module pretty prints the board and its solution
+  Esse módulo imprime o tabuleiro com a solução completa
   """
 
   @doc """
-  Prints a list of integers of the board
+  Imprime a lista de inteiros do tabuleiro
   """
   @spec printLine(list(integer)) :: :ok
   def printLine([]), do: IO.puts("")
@@ -16,18 +16,16 @@ defmodule BoardPrinter do
   end
 
   @doc """
-  Prints the Sudoku board
+  Imprime o tabuleiro Sudoku
   """
   @spec printBoard(nil) :: :ok
   @spec printBoard(list(list(integer))) :: :ok
   def printBoard(nil), do: IO.puts("NENHUMA SOLUÇÃO ENCONTRADA.")
 
+  def printBoard([x]), do: printLine(x)
+
   def printBoard([x | xs]) do
     printLine(x)
-
-    case xs do
-      [] -> printLine(x)
-      _ -> printBoard(xs)
-    end
+    printBoard(xs)
   end
 end
