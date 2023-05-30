@@ -1,10 +1,10 @@
 # VergleichsSudoku
 
 **TODO:**
-[ ] Add description
-[ ] Translate comments
-[ ] Add unittest
-[ ] Write Relatório.pdf
+ - [ ] Add description
+ - [x] Translate comments
+ - [ ] Add unittest
+ - [x] Write Relatório.pdf
 
 ## Installation
 
