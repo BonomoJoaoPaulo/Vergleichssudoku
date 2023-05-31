@@ -1,9 +1,4 @@
 # VergleichsSudoku
-
-**TODO:**
- - [ ] Add intallation and testing information
- - [ ] Add unittest
-
 ## Compiling and running
 
 Compiling:
