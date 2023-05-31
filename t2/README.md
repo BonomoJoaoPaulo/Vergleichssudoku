@@ -4,15 +4,22 @@
  - [ ] Add intallation and testing information
  - [ ] Add unittest
 
-## Installation
+## Compiling and running
 
-Dependencies in `mix.exs`:
+Compiling:
 
-```elixir
-def deps do
-  [
-    {:t2, "~> 0.1.0"}
-  ]
-end
+``` 
+$ mix compile
 ```
 
+Cleaning compiled files:
+
+``` 
+$ mix clean
+```
+
+Running:
+
+``` 
+$ mix run /lib/main.ex
+```
