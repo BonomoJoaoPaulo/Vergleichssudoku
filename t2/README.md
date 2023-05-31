@@ -1,15 +1,12 @@
 # VergleichsSudoku
 
 **TODO:**
- - [ ] Add description
- - [x] Translate comments
+ - [ ] Add intallation and testing information
  - [ ] Add unittest
- - [x] Write Relatório.pdf
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `t2` to your list of dependencies in `mix.exs`:
+Dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -18,8 +15,4 @@ def deps do
   ]
 end
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/t2](https://hexdocs.pm/t2).
 
